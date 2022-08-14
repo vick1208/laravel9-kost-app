@@ -21,4 +21,26 @@ class RoomController extends Controller
             'locations' => $locations
         ]);
     }
+
+    public function store(Request $request) {
+        $validatedData = $request->validate([
+            'code' => 'required|unique:rooms',
+            'location_id' => 'required',
+            'capacity' => ''
+        ]);
+        Room::create($validatedData);
+        return redirect('/rooms')->with(['success' => 'Data kamar telah dibuat']);
+    }
+
+    public function edit() {
+        
+    }   
+
+    public function update() {
+        
+    }
+
+    public function delete() {
+        
+    }
 }

@@ -5,28 +5,38 @@
   <h1 class="h2">Buat Kamar</h1>
 </div>
 
-<form>
+<form action="/rooms" method="post">
+  @csrf
   <div class="mb-3 row">
     <label for="code" class="col-sm-2 col-form-label">Kode Kamar</label>
     <div class="col-sm-3">
-      <input class="form-control form-control-sm" type="text" id="code" name="code">
+      <input class="form-control form-control-sm" type="text" id="code" name="code" value="{{ old('code') }}">
+      @error('code')  
+        <div class="form-text text-danger">{{ $message }}</div>
+      @enderror
     </div>
   </div>
   <div class="mb-3 row">
     <label for="location_id" class="col-sm-2 col-form-label">Lokasi</label>
     <div class="col-sm-3">
       <select class="form-select" name="location_id">
-        <option selected>Open this select menu</option>
+        <option @selected(!old('location_id')) value="">Open this select menu</option>
         @foreach ($locations as $location)
-          <option value="{{ $location->id }}">{{ $location->name }}</option>
+          <option value="{{ $location->id }}" @selected($location->id == old('location_id'))>{{ $location->name }}</option>
         @endforeach
       </select>
+      @error('location_id')  
+        <div class="form-text text-danger">{{ $message }}</div>
+      @enderror
     </div>
   </div>
   <div class="mb-3 row">
     <label for="capacity" class="col-sm-2 col-form-label">Kapasitas</label>
     <div class="col-sm-3">
-      <input class="form-control form-control-sm" type="text" id="capacity" name="capacity">
+      <input class="form-control form-control-sm" type="number" id="capacity" name="capacity" value="{{ old('capacity', 1) }}">
+      @error('capacity')  
+        <div class="form-text text-danger">{{ $message }}</div>
+      @enderror
     </div>
   </div>
   <div class="mb-3 row gap-2">

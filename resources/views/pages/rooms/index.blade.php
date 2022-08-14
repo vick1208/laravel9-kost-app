@@ -6,6 +6,12 @@
 </div>
 
 <a href="/rooms/form" class="btn btn-sm btn-primary">Buat Baru</a>
+@if (session('success'))
+  <div class="alert alert-success alert-dismissible fade show my-4 col-6" role="alert">
+    {{ session('success') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+@endif
 <table class="table table-striped table-hover">
   <thead>
     <tr>

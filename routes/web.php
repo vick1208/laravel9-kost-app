@@ -30,18 +30,9 @@ Route::get('/', function () {
     return view('pages.index');
 });
 
-Route::get('/rooms', [RoomController::class, 'index']);
-Route::get('/rooms/form', [RoomController::class, 'create']);
-Route::post('/rooms', [RoomController::class, 'store']);
-Route::get('/rooms/{id}', [RoomController::class, 'edit']);
-Route::put('/rooms/{id}', [RoomController::class, 'update']);
-Route::delete('/rooms/{id}', [RoomController::class, 'delete']);
-
-Route::get('/occupants', [OccupantController::class, 'index']);
-Route::get('/occupants/form', [OccupantController::class, 'create']);
-
-Route::get('/placements', [PlacementController::class, 'index']);
-Route::get('/placements/form', [PlacementController::class, 'create']);
-
-Route::get('/locations', [LocationController::class, 'index']);
-Route::get('/locations/form', [LocationController::class, 'create']);
+Route::resources([
+    'rooms' => RoomController::class,
+    'occupants' => OccupantController::class,
+    'placements' => PlacementController::class,
+    'locations' => LocationController::class
+]);

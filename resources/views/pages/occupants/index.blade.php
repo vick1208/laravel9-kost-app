@@ -5,7 +5,7 @@
   <h1 class="h2">Penghuni</h1>
 </div>
 
-<a href="/occupants/form" class="btn btn-sm btn-primary">Buat Baru</a>
+<a href="/occupants/create" class="btn btn-sm btn-primary">Buat Baru</a>
 <table class="table table-striped table-hover">
   <thead>
     <tr>

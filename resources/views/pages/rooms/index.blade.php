@@ -5,7 +5,7 @@
   <h1 class="h2">Kamar</h1>
 </div>
 
-<a href="/rooms/form" class="btn btn-sm btn-primary">Buat Baru</a>
+<a href="/rooms/create" class="btn btn-sm btn-primary">Buat Baru</a>
 @if (session('success'))
   <div class="alert alert-success alert-dismissible fade show my-4 col-6" role="alert">
     {{ session('success') }}
@@ -32,9 +32,13 @@
         <td>{{ $room->location->name }}</td>
         <td>{{ $room->capacity }}</td>
         <td>
-          <a href="#" class="badge text-bg-primary text-decoration-none">Detail</a>
-          <a href="#" class="badge text-bg-warning text-decoration-none">Ubah</a>
-          <a href="#" class="badge text-bg-danger text-decoration-none">Hapus</a>
+          <a href="/rooms/{{ $room->id }}" class="badge text-bg-primary text-decoration-none">Detail</a>
+          <a href="/rooms/{{ $room->id }}/edit" class="badge text-bg-warning text-decoration-none">Ubah</a>
+          <form action="/rooms/{{ $room->id }}" class="d-inline" method="post">
+          @csrf
+          @method('delete')
+            <button href="/rooms/{{ $room->id }}" class="badge text-bg-danger text-decoration-none border-0" onclick="return confirm('Apakah Anda yakin ingin melanjutkan ?');">Hapus</button>
+          </form>
         </td>
       </tr>
     @endforeach

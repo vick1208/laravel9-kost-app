@@ -5,7 +5,7 @@
   <h1 class="h2">Lokasi</h1>
 </div>
 
-<a href="/locations/form" class="btn btn-sm btn-primary">Buat Baru</a>
+<a href="/locations/create" class="btn btn-sm btn-primary">Buat Baru</a>
 <table class="table table-striped table-hover">
   <thead>
     <tr>

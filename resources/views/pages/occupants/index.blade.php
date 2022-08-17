@@ -6,6 +6,12 @@
 </div>
 
 <a href="/occupants/create" class="btn btn-sm btn-primary">Buat Baru</a>
+@if (session('success'))
+  <div class="alert alert-success alert-dismissible fade show my-4 col-6" role="alert">
+    {{ session('success') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+@endif
 <table class="table table-striped table-hover">
   <thead>
     <tr>
@@ -22,12 +28,16 @@
       <tr>
         <td>{{ $loop->iteration }}</td>
         <td>{{ $occupant->name }}</td>
-        <td>{{ $occupant->gender }}</td>
+        <td>{{ ucfirst($occupant->gender) }}</td>
         <td>{{ $occupant->phone_number }}</td>
         <td>
-          <a href="#" class="badge text-bg-primary text-decoration-none">Detail</a>
-          <a href="#" class="badge text-bg-warning text-decoration-none">Ubah</a>
-          <a href="#" class="badge text-bg-danger text-decoration-none">Hapus</a>
+          <a href="/occupants/{{ $occupant->id }}" class="badge text-bg-primary text-decoration-none">Detail</a>
+          <a href="/occupants/{{ $occupant->id }}/edit" class="badge text-bg-warning text-decoration-none">Ubah</a>
+          <form action="/occupants/{{ $occupant->id }}" class="d-inline" method="post">
+            @csrf
+            @method('delete')
+              <button href="/occupants/{{ $occupant->id }}" class="badge text-bg-danger text-decoration-none border-0" onclick="return confirm('Apakah Anda yakin ingin melanjutkan ?');">Hapus</button>
+            </form>
         </td>
       </tr>
     @endforeach

@@ -21,7 +21,7 @@
     @foreach ($placements as $placement)
       <tr>
         <td>{{ $loop->iteration }}</td>
-        <td>{{ $placement->occupant->name }}</td>
+        <td>{{ $placement->occupant ? $placement->occupant->name : '' }}</td>
         <td>{{ $placement->room->code }}</td>
         <td>{{ $placement->check_in_date }}</td>
         <td>{{ $placement->check_out_date }}</td>

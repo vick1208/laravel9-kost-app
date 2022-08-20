@@ -36,8 +36,8 @@
           <form action="/occupants/{{ $occupant->id }}" class="d-inline" method="post">
             @csrf
             @method('delete')
-              <button href="/occupants/{{ $occupant->id }}" class="badge text-bg-danger text-decoration-none border-0" onclick="return confirm('Apakah Anda yakin ingin melanjutkan ?');">Hapus</button>
-            </form>
+            <button class="badge text-bg-danger text-decoration-none border-0" onclick="return confirm('Apakah Anda yakin ingin melanjutkan ?');">Hapus</button>
+          </form>
         </td>
       </tr>
     @endforeach

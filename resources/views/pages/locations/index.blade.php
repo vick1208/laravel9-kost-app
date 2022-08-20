@@ -6,6 +6,12 @@
 </div>
 
 <a href="/locations/create" class="btn btn-sm btn-primary">Buat Baru</a>
+@if (session('success'))
+  <div class="alert alert-success alert-dismissible fade show my-4 col-6" role="alert">
+    {{ session('success') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+@endif
 <table class="table table-striped table-hover">
   <thead>
     <tr>
@@ -21,9 +27,13 @@
         <td>{{ $loop->iteration }}</td>
         <td>{{ $location->name }}</td>
         <td>
-          <a href="#" class="badge text-bg-primary text-decoration-none">Detail</a>
-          <a href="#" class="badge text-bg-warning text-decoration-none">Ubah</a>
-          <a href="#" class="badge text-bg-danger text-decoration-none">Hapus</a>
+          <a href="/locations/{{ $location->id }}" class="badge text-bg-primary text-decoration-none">Detail</a>
+          <a href="/locations/{{ $location->id }}/edit" class="badge text-bg-warning text-decoration-none">Ubah</a>
+          <form action="/locations/{{ $location->id }}" class="d-inline" method="post">
+            @csrf
+            @method('delete')
+            <button class="badge text-bg-danger text-decoration-none border-0" onclick="return confirm('Apakah Anda yakin ingin melanjutkan ?');">Hapus</button>
+          </form>
         </td>
       </tr>
     @endforeach

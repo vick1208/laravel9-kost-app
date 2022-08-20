@@ -2,15 +2,16 @@
 
 @section('main')
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-  <h1 class="h2">Buat Lokasi</h1>
+  <h1 class="h2">Ubah Lokasi</h1>
 </div>
 
-<form action="/locations" method="post">
+<form action="/locations/{{ $location->id }}" method="post">
   @csrf
+  @method('put')
   <div class="mb-3 row">
     <label for="name" class="col-sm-2 col-form-label">Nama Lokasi</label>
     <div class="col-sm-3">
-      <input class="form-control form-control-sm" type="text" id="name" name="name" value="{{ old('name') }}">
+      <input class="form-control form-control-sm" type="text" id="name" name="name" value="{{ old('name', $location->name) }}">
       @error('name')  
         <div class="form-text text-danger">{{ $message }}</div>
       @enderror

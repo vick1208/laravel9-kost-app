@@ -6,6 +6,12 @@
 </div>
 
 <a href="/placements/create" class="btn btn-sm btn-primary">Buat Baru</a>
+@if (session('success'))
+  <div class="alert alert-success alert-dismissible fade show my-4 col-6" role="alert">
+    {{ session('success') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+@endif
 <table class="table table-striped table-hover">
   <thead>
     <tr>
@@ -26,9 +32,13 @@
         <td>{{ $placement->check_in_date }}</td>
         <td>{{ $placement->check_out_date }}</td>
         <td>
-          <a href="#" class="badge text-bg-primary text-decoration-none">Detail</a>
-          <a href="#" class="badge text-bg-warning text-decoration-none">Ubah</a>
-          <a href="#" class="badge text-bg-danger text-decoration-none">Hapus</a>
+          <a href="/placements/{{ $placement->id }}" class="badge text-bg-primary text-decoration-none">Detail</a>
+          <a href="/placements/{{ $placement->id }}/edit" class="badge text-bg-warning text-decoration-none">Ubah</a>
+          <form action="/placements/{{ $placement->id }}" class="d-inline" method="post">
+            @csrf
+            @method('delete')
+            <button class="badge text-bg-danger text-decoration-none border-0" onclick="return confirm('Apakah Anda yakin ingin melanjutkan ?');">Hapus</button>
+          </form>
         </td>
       </tr>
     @endforeach

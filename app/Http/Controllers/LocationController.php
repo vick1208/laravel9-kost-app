@@ -17,4 +17,39 @@ class LocationController extends Controller
     public function create() {
         return view('pages.locations.form');
     }
+
+    public function show($id) {
+        $location = Location::find($id);
+        return view('pages.locations.detail', [
+            'location' => $location
+        ]);
+    }
+
+    public function store(Request $request) {
+        $validatedData = $request->validate([
+            'name' => 'required'
+        ]);
+        Location::create($validatedData);
+        return redirect('/locations')->with(['success' => 'Lokasi telah dibuat']);
+    }
+
+    public function edit($id) {
+        $location = Location::find($id);
+        return view('pages.locations.edit',[
+            'location' => $location,
+        ]);
+    }
+
+    public function update(Request $request, $id) {
+        $validatedData = $request->validate([
+            'name' => 'required'
+        ]);
+        Location::where('id', $id)->update($validatedData);
+        return redirect('/locations')->with(['success' => 'Lokasi telah diubah']);
+    }
+
+    public function destroy($id) {
+        Location::destroy($id);
+        return redirect('/locations')->with(['success' => 'Lokasi telah dihapus']);
+    }
 }

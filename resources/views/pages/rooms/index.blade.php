@@ -29,7 +29,7 @@
       <tr>
         <td>{{ $loop->iteration }}</td>
         <td>{{ $room->code }}</td>
-        <td>{{ $room->location->name }}</td>
+        <td>{{ $room->location ? $room->location->name : '' }}</td>
         <td>{{ $room->capacity }}</td>
         <td>
           <a href="/rooms/{{ $room->id }}" class="badge text-bg-primary text-decoration-none">Detail</a>
@@ -37,7 +37,7 @@
           <form action="/rooms/{{ $room->id }}" class="d-inline" method="post">
           @csrf
           @method('delete')
-            <button href="/rooms/{{ $room->id }}" class="badge text-bg-danger text-decoration-none border-0" onclick="return confirm('Apakah Anda yakin ingin melanjutkan ?');">Hapus</button>
+            <button class="badge text-bg-danger text-decoration-none border-0" onclick="return confirm('Apakah Anda yakin ingin melanjutkan ?');">Hapus</button>
           </form>
         </td>
       </tr>

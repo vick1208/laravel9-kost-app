@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\OccupantController;
 use App\Http\Controllers\PlacementController;
@@ -18,21 +19,23 @@ use App\Http\Controllers\LocationController;
 |
 */
 
-Route::get('/login', function () {
-    return view('auth.login');
-});
+Route::get('/login', [AuthController::class, 'login'])->name('login')->middleware('guest');
+Route::post('/login', [AuthController::class, 'authenticate'])->middleware('guest');
+Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth');
 
 Route::get('/register', function () {
     return view('auth.register');
-});
+})->middleware('guest');
 
 Route::get('/', function () {
     return view('pages.index');
-});
+})->middleware('auth');
 
-Route::resources([
-    'rooms' => RoomController::class,
-    'occupants' => OccupantController::class,
-    'placements' => PlacementController::class,
-    'locations' => LocationController::class
-]);
+Route::group(['middleware' => 'auth'], function() {
+    Route::resources([
+        'rooms' => RoomController::class,
+        'occupants' => OccupantController::class,
+        'placements' => PlacementController::class,
+        'locations' => LocationController::class
+    ]);
+});

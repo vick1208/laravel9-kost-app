@@ -18,7 +18,8 @@ class OccupantController extends Controller
     public function index() {
         $occupants = Occupant::all()->sortBy('name');
         return view('pages.occupants.index', [
-            'occupants' => $occupants
+            'occupants' => $occupants,
+            'resource' => 'occupants'
         ]);
     }
     
@@ -75,5 +76,18 @@ class OccupantController extends Controller
     public function destroy($id) {
         Occupant::destroy($id);
         return redirect('/occupants')->with(['success' => 'Penghuni telah dihapus']);
+    }
+
+    public function search(Request $request) {
+        $keyword = $request->keyword;
+
+        $occupants = Occupant::where('name', 'like', "%$keyword%")
+                    ->orWhere('phone_number', 'like', "%$keyword%")
+                    ->get();
+
+        return view('pages.occupants.index', [
+            'occupants' => $occupants,
+            'resource' => 'occupants'
+        ]);
     }
 }

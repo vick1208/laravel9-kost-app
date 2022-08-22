@@ -12,7 +12,8 @@ class PlacementController extends Controller
     public function index() {
         $placements = Placement::all();
         return view('pages.placements.index', [
-            'placements' => $placements
+            'placements' => $placements,
+            'resource' => 'placements'
         ]);
     }
 
@@ -68,5 +69,16 @@ class PlacementController extends Controller
     public function destroy($id) {
         Placement::destroy($id);
         return redirect('/placements')->with(['success' => 'Penempatan telah dihapus']);
+    }
+
+    public function search(Request $request) {
+        $keyword = $request->keyword;
+        $placements = Placement::whereHas('occupant', function($query) use ($keyword) {
+            $query->where('name', 'like', "%$keyword%");
+        });
+        return view('pages.placements.index', [
+            'placements' => $placements,
+            'resource' => 'placements'
+        ]);
     }
 }

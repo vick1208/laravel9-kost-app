@@ -19,7 +19,8 @@ class RoomController extends Controller
     public function index() {
         $rooms = Room::all()->sortBy('code');
         return view('pages.rooms.index', [
-            'rooms' => $rooms
+            'rooms' => $rooms,
+            'resource' => 'rooms'
         ]);
     }
 
@@ -67,5 +68,16 @@ class RoomController extends Controller
     public function destroy($id) {
         Room::destroy($id);
         return redirect('/rooms')->with(['success' => 'Data kamar telah dihapus']);
+    }
+
+    public function search(Request $request) {
+        $keyword = $request->keyword;
+
+        $rooms = Room::where('code', 'like', "%$keyword%")->get();
+
+        return view('pages.rooms.index', [
+            'rooms' => $rooms,
+            'resource' => 'rooms'
+        ]);
     }
 }

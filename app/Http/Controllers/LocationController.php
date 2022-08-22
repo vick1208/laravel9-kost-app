@@ -10,7 +10,8 @@ class LocationController extends Controller
     public function index() {
         $locations = Location::all()->sortBy('name');
         return view('pages.locations.index', [
-            'locations' => $locations
+            'locations' => $locations,
+            'resource' => 'locations'
         ]);
     }
 
@@ -51,5 +52,16 @@ class LocationController extends Controller
     public function destroy($id) {
         Location::destroy($id);
         return redirect('/locations')->with(['success' => 'Lokasi telah dihapus']);
+    }
+
+    public function search(Request $request) {
+        $keyword = $request->keyword;
+
+        $locations = Location::where('name', 'like', "%$keyword%")->get();
+
+        return view('pages.locations.index', [
+            'locations' => $locations,
+            'resource' => 'locations'
+        ]);
     }
 }

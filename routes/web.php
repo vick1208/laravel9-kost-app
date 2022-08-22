@@ -32,6 +32,10 @@ Route::get('/', function () {
 })->middleware('auth');
 
 Route::group(['middleware' => 'auth'], function() {
+    Route::get('/rooms/search', [RoomController::class, 'search'])->middleware('auth');
+    Route::get('/occupants/search', [OccupantController::class, 'search'])->middleware('auth');
+    Route::get('/placements/search', [PlacementController::class, 'search'])->middleware('auth');
+    Route::get('/locations/search', [LocationController::class, 'search'])->middleware('auth');
     Route::resources([
         'rooms' => RoomController::class,
         'occupants' => OccupantController::class,
@@ -39,3 +43,4 @@ Route::group(['middleware' => 'auth'], function() {
         'locations' => LocationController::class
     ]);
 });
+

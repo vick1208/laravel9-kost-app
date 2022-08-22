@@ -9,13 +9,13 @@
 <div class="row">
   <label for="occupant_id" class="col-sm-2 col-form-label">Penghuni</label>
   <div class="col-sm-3">
-    <input class="form-control-plaintext form-control-sm" type="text" value="{{ $placement->occupant->name }}" readonly id="occupant_id">
+    <input class="form-control-plaintext form-control-sm" type="text" value="{{ $placement->occupant ? $placement->occupant->name : '' }}" readonly id="occupant_id">
   </div>
 </div>
 <div class="row">
   <label for="room_id" class="col-sm-2 col-form-label">Kamar</label>
   <div class="col-sm-3">
-    <input class="form-control-plaintext form-control-sm" type="text" value="{{ $placement->room->code }}" readonly id="room_id">
+    <input class="form-control-plaintext form-control-sm" type="text" value="{{ $placement->room ? $placement->room->code : '' }}" readonly id="room_id">
   </div>
 </div>
 <div class="row">

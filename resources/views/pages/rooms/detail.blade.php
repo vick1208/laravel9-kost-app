@@ -14,7 +14,7 @@
 <div class="row">
   <label for="location_id" class="col-sm-2 col-form-label">Lokasi</label>
   <div class="col-sm-3">
-    <input class="form-control-plaintext" readonly type="text" id="location" value="{{ $room->location->name }}">
+    <input class="form-control-plaintext" readonly type="text" id="location" value="{{ $room->location ? $room->location->name : '' }}">
   </div>
 </div>
 <div class="row">

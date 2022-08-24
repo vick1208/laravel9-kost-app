@@ -21,13 +21,27 @@
 <div class="row">
   <label for="check_in_date" class="col-sm-2 col-form-label">Tanggal Masuk</label>
   <div class="col-sm-3">
-    <input class="form-control-plaintext form-control-sm" type="text" value="{{ $placement->check_in_date }}" readonly id="check_in_date">
+    @if (!empty($placement->check_in_date))
+      <input class="form-control-plaintext form-control-sm" type="text" value="{{ date('d/m/Y', strtotime($placement->check_in_date)) }}" readonly id="check_in_date">
+    @endif
   </div>
 </div>
 <div class="row">
   <label for="check_out_date" class="col-sm-2 col-form-label">Tanggal Keluar</label>
   <div class="col-sm-3">
-    <input class="form-control-plaintext form-control-sm" type="text" value="{{ $placement->check_out_date }}" readonly id="check_out_date">
+    @if (!empty($placement->check_out_date))
+      <input class="form-control-plaintext form-control-sm" type="text" value="{{ date('d/m/Y', strtotime($placement->check_out_date)) }}" readonly id="check_out_date">
+    @endif
+  </div>
+</div>
+<div class="mb-3 row gap-2">
+  <div class="col-form-label">
+    {{-- <a href="/placements/{{ $placement->id }}/edit" class="btn btn-sm btn-warning col-sm-1">Ubah</a> --}}
+    <form action="/placements/{{ $placement->id }}" class="d-inline" method="post">
+      @csrf
+      @method('delete')
+      <button class="btn btn-sm btn-danger col-sm-1 text-decoration-none" onclick="return confirm('Apakah Anda yakin ingin melanjutkan ?');">Hapus</button>
+    </form>
   </div>
 </div>
 @endsection

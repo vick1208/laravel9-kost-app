@@ -5,7 +5,7 @@
   <h1 class="h2">Penempatan</h1>
 </div>
 
-<a href="/placements/create" class="btn btn-sm btn-primary">Buat Baru</a>
+{{-- <a href="/placements/create" class="btn btn-sm btn-primary">Buat Baru</a> --}}
 @if (session('success'))
   <div class="alert alert-success alert-dismissible fade show my-4 col-6" role="alert">
     {{ session('success') }}
@@ -29,11 +29,19 @@
         <td>{{ $loop->iteration }}</td>
         <td>{{ $placement->occupant ? $placement->occupant->name : '' }}</td>
         <td>{{ $placement->room->code }}</td>
-        <td>{{ $placement->check_in_date }}</td>
-        <td>{{ $placement->check_out_date }}</td>
+        <td>
+          @if (!empty($placement->check_in_date))
+              {{ date('d/m/Y', strtotime($placement->check_in_date)) }}
+          @endif
+        </td>
+        <td>
+          @if (!empty($placement->check_out_date))
+              {{ date('d/m/Y', strtotime($placement->check_out_date)) }}
+          @endif
+        </td>
         <td>
           <a href="/placements/{{ $placement->id }}" class="badge text-bg-primary text-decoration-none">Detail</a>
-          <a href="/placements/{{ $placement->id }}/edit" class="badge text-bg-warning text-decoration-none">Ubah</a>
+          {{-- <a href="/placements/{{ $placement->id }}/edit" class="badge text-bg-warning text-decoration-none">Ubah</a> --}}
           <form action="/placements/{{ $placement->id }}" class="d-inline" method="post">
             @csrf
             @method('delete')

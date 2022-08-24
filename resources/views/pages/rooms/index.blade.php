@@ -25,7 +25,6 @@
 
   <tbody>
     @foreach ($rooms as $room)
-        
       <tr>
         <td>{{ $loop->iteration }}</td>
         <td>{{ $room->code }}</td>

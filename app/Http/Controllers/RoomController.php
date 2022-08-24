@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Room;
 use App\Models\Location;
+use App\Models\Occupant;
+use App\Models\Placement;
 
 //   GET|HEAD        rooms ................... rooms.index › RoomController@index
 //   POST            rooms ................... rooms.store › RoomController@store
@@ -27,7 +29,9 @@ class RoomController extends Controller
     public function show($id) {
         $room = Room::find($id);
         return view('pages.rooms.detail', [
-            'room' => $room
+            'room' => $room,
+            'rooms' => Room::all()->sortBy('code'),
+            'occupants' => Occupant::all()->sortBy('name')
         ]);
     }
 
@@ -45,7 +49,7 @@ class RoomController extends Controller
             'capacity' => ''
         ]);
         Room::create($validatedData);
-        return redirect('/rooms')->with(['success' => 'Data kamar telah dibuat']);
+        return back()->with(['success' => 'Data kamar telah dibuat']);
     }
 
     public function edit($id) {
@@ -62,12 +66,12 @@ class RoomController extends Controller
             'capacity' => ''
         ]);
         Room::where('id', $id)->update($validatedData);
-        return redirect('/rooms')->with(['success' => 'Data kamar telah diubah']);
+        return back()->with(['success' => 'Data kamar telah diubah']);
     }
     
     public function destroy($id) {
         Room::destroy($id);
-        return redirect('/rooms')->with(['success' => 'Data kamar telah dihapus']);
+        return back()->with(['success' => 'Data kamar telah dihapus']);
     }
 
     public function search(Request $request) {
@@ -80,4 +84,17 @@ class RoomController extends Controller
             'resource' => 'rooms'
         ]);
     }
+
+    // public function store_placement(Request $request, $id) {
+    //     $validatedData = $request->validate([
+    //         'occupant_id' => 'required',
+    //         'room_id' => 'required',
+    //         'check_in_date' => 'nullable|date',
+    //         'check_out_date' => 'nullable|date',
+    //     ]);
+    //     Placement::create($validatedData);
+    //     return redirect("/rooms/$id")->with([
+    //         'success' => 'Penghuni telah ditempatkan'
+    //     ]);
+    // }
 }

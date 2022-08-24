@@ -35,39 +35,6 @@
   </div>
 </div>
 
-<h3 class="mt-5">Penghuni Terbaru</h3>
-<table class="table table-striped table-hover">
-  <thead>
-    <tr>
-      <th>No.</th>
-      <th>Nama</th>
-      <th>Jenis Kelamin</th>
-      <th>Nomor Handphone</th>
-      <th>Aksi</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    @foreach ($latest_occupants as $occupant)
-      <tr>
-        <td>{{ $loop->iteration }}</td>
-        <td>{{ $occupant->name }}</td>
-        <td>{{ ucfirst($occupant->gender) }}</td>
-        <td>{{ $occupant->phone_number }}</td>
-        <td>
-          <a href="/occupants/{{ $occupant->id }}" class="badge text-bg-primary text-decoration-none">Detail</a>
-          <a href="/occupants/{{ $occupant->id }}/edit" class="badge text-bg-warning text-decoration-none">Ubah</a>
-          <form action="/occupants/{{ $occupant->id }}" class="d-inline" method="post">
-            @csrf
-            @method('delete')
-            <button class="badge text-bg-danger text-decoration-none border-0" onclick="return confirm('Apakah Anda yakin ingin melanjutkan ?');">Hapus</button>
-          </form>
-        </td>
-      </tr>
-    @endforeach
-  </tbody>
-</table>
-
 <h3 class="mt-5">Penempatan Terbaru</h3>
 <table class="table table-striped table-hover">
   <thead>
@@ -76,7 +43,6 @@
       <th>Penghuni</th>
       <th>Kamar</th>
       <th>Tanggal Masuk</th>
-      <th>Tanggal Keluar</th>
       <th>Aksi</th>
     </tr>
   </thead>
@@ -89,11 +55,6 @@
         <td>
           @if(!empty($placement->check_in_date))
             {{ date('d/m/Y', strtotime($placement->check_in_date)) }}
-          @endif
-        </td>
-        <td>
-          @if(!empty($placement->check_out_date))
-            {{ date('d/m/Y', strtotime($placement->check_out_date)) }}
           @endif
         </td>
         <td>

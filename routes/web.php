@@ -41,5 +41,6 @@ Route::group(['middleware' => 'auth'], function() {
         'placements' => PlacementController::class,
         'locations' => LocationController::class
     ]);
+    Route::post('/rooms/{id}/placements', [RoomController::class, 'store_placement']);
 });
 

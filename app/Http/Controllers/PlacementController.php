@@ -41,7 +41,7 @@ class PlacementController extends Controller
             'check_out_date' => 'nullable|date',
         ]);
         Placement::create($validatedData);
-        return redirect('/placements')->with(['success' => 'Penempatan telah dibuat']);
+        return back()->with(['success' => 'Penempatan telah dibuat']);
     }
 
     public function edit($id) {

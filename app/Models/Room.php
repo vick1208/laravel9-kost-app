@@ -14,4 +14,8 @@ class Room extends Model
     public function location() {
         return $this->belongsTo(Location::class);
     }
+
+    public function placements() {
+        return $this->hasMany(Placement::class);
+    }
 }

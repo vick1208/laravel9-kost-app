@@ -51,7 +51,7 @@ class RoomController extends Controller
     public function edit($id) {
         return view('pages.rooms.edit', [
             'room' => Room::find($id),
-            'locations' => Location::all()
+            'locations' => Location::all()->sortBy('name')
         ]);
     }   
 

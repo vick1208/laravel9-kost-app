@@ -10,7 +10,7 @@
   <div class="mb-3 row">
     <label for="occupant_id" class="col-sm-2 col-form-label">Penghuni</label>
     <div class="col-sm-3">
-      <select class="form-select" name="occupant_id">
+      <select class="form-select form-select-sm" name="occupant_id">
         <option value="" @selected(!old('occupant_id'))>Pilih Penghuni</option>
         @foreach ($occupants as $occupant)
           <option value="{{ $occupant->id }}" @selected($occupant->id == old('occupant_id'))>{{ $occupant->name }}</option>
@@ -24,7 +24,7 @@
   <div class="mb-3 row">
     <label for="room_id" class="col-sm-2 col-form-label">Kamar</label>
     <div class="col-sm-3">
-      <select class="form-select" name="room_id">
+      <select class="form-select form-select-sm" name="room_id">
         <option value="" @selected(!old('room_id'))>Pilih Kamar</option>
         @foreach ($rooms as $room)
           <option value="{{ $room->id }}" @selected($room->id == old('room_id'))>{{ $room->code }}</option>

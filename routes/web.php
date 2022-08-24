@@ -2,11 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\OccupantController;
 use App\Http\Controllers\PlacementController;
 use App\Http\Controllers\LocationController;
-
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,9 +28,7 @@ Route::get('/register', function () {
     return view('auth.register');
 })->middleware('guest');
 
-Route::get('/', function () {
-    return view('pages.index');
-})->middleware('auth');
+Route::get('/', [DashboardController::class, 'index'])->middleware('auth');
 
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/rooms/search', [RoomController::class, 'search'])->middleware('auth');

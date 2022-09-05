@@ -49,7 +49,7 @@ class RoomController extends Controller
             'capacity' => ''
         ]);
         Room::create($validatedData);
-        return back()->with(['success' => 'Data kamar telah dibuat']);
+        return redirect('/rooms')->with(['success' => 'Data kamar telah dibuat']);
     }
 
     public function edit($id) {
@@ -66,12 +66,12 @@ class RoomController extends Controller
             'capacity' => ''
         ]);
         Room::where('id', $id)->update($validatedData);
-        return back()->with(['success' => 'Data kamar telah diubah']);
+        return redirect('/rooms')->with(['success' => 'Data kamar telah diubah']);
     }
     
     public function destroy($id) {
         Room::destroy($id);
-        return back()->with(['success' => 'Data kamar telah dihapus']);
+        return redirect('/rooms')->with(['success' => 'Data kamar telah dihapus']);
     }
 
     public function search(Request $request) {

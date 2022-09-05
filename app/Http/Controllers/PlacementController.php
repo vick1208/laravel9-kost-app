@@ -10,7 +10,7 @@ use App\Models\Room;
 class PlacementController extends Controller
 {
     public function index() {
-        $placements = Placement::all();
+        $placements = Placement::orderBy('id', 'desc')->get();
         return view('pages.placements.index', [
             'placements' => $placements,
             'resource' => 'placements'
@@ -37,9 +37,14 @@ class PlacementController extends Controller
         $validatedData = $request->validate([
             'occupant_id' => 'required',
             'room_id' => 'required',
-            'check_in_date' => 'nullable|date',
-            'check_out_date' => 'nullable|date',
+            'check_in_date' => 'date',
+            'check_out_date' => 'date|after_or_equal:check_in_date',
         ]);
+        $occupied = Placement::where('occupant_id', $validatedData['occupant_id'])
+            ->whereNull('check_out_date');
+        if ($occupied->count() > 0) {
+            return back()->with(['error' => 'Penghuni masih aktif']);
+        }
         Placement::create($validatedData);
         return back()->with(['success' => 'Penempatan telah dibuat']);
     }
@@ -80,5 +85,14 @@ class PlacementController extends Controller
             'placements' => $placements,
             'resource' => 'placements'
         ]);
+    }
+
+    public function checkout(Request $request, $id) {
+        $placement = Placement::find($id);
+        $validatedData = $request->validate([
+            'check_out_date' => 'required|date|after_or_equal:check_in_date'
+        ]);
+        $placement->update($validatedData);
+        return back()->with(['success' => 'Penghuni telah keluar dari penempatan']);
     }
 }

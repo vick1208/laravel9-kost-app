@@ -5,10 +5,14 @@
   <h1 class="h2">Penempatan</h1>
 </div>
 
-{{-- <a href="/placements/create" class="btn btn-sm btn-primary">Buat Baru</a> --}}
 @if (session('success'))
   <div class="alert alert-success alert-dismissible fade show my-4 col-6" role="alert">
     {{ session('success') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+@elseif(session('error'))
+  <div class="alert alert-danger alert-dismissible fade show my-4 col-6" role="alert">
+    {{ session('error') }}
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
 @endif
@@ -25,6 +29,7 @@
   </thead>
   <tbody>
     @foreach ($placements as $placement)
+      @include('wizards.placement_checkout', ['placement' => $placement])
       <tr>
         <td>{{ $loop->iteration }}</td>
         <td>{{ $placement->occupant ? $placement->occupant->name : '' }}</td>
@@ -40,13 +45,10 @@
           @endif
         </td>
         <td>
-          <a href="/placements/{{ $placement->id }}" class="badge text-bg-primary text-decoration-none">Detail</a>
-          {{-- <a href="/placements/{{ $placement->id }}/edit" class="badge text-bg-warning text-decoration-none">Ubah</a> --}}
-          <form action="/placements/{{ $placement->id }}" class="d-inline" method="post">
-            @csrf
-            @method('delete')
-            <button class="badge text-bg-danger text-decoration-none border-0" onclick="return confirm('Apakah Anda yakin ingin melanjutkan ?');">Hapus</button>
-          </form>
+          @if (empty($placement->check_out_date))
+            <button class="border-0 badge text-bg-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#placement_checkout_wizard_{{ $placement->id }}">Keluarkan</button>
+            <a href="/placements/{{ $placement->id }}/edit" class="badge text-bg-warning text-decoration-none">Ubah</a>
+          @endif
         </td>
       </tr>
     @endforeach

@@ -16,6 +16,6 @@ class Room extends Model
     }
 
     public function placements() {
-        return $this->hasMany(Placement::class);
+        return $this->hasMany(Placement::class)->orderBy('id', 'desc');
     }
 }

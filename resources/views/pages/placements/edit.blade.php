@@ -45,15 +45,6 @@
       @enderror
     </div>
   </div>
-  <div class="mb-3 row">
-    <label for="check_out_date" class="col-sm-2 col-form-label">Tanggal Keluar</label>
-    <div class="col-sm-3">
-      <input class="form-control form-control-sm" type="date" id="check_out_date" name="check_out_date" value="{{ old('check_out_date', $placement->check_out_date) }}">
-      @error('check_out_date')  
-        <div class="form-text text-danger">{{ $message }}</div>
-      @enderror
-    </div>
-  </div>
   <div class="mb-3 row gap-2">
     <div class="col-form-label">
       <button class="btn btn-sm btn-primary col-sm-1" type="submit">Simpan</button>

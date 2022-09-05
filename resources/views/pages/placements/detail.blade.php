@@ -1,11 +1,17 @@
 @extends('layout')
+@include('wizards.placement_checkout')
 
 @section('main')
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
   <h1 class="h2">Detail Penempatan</h1>
 </div>
 
-
+@if (session('success'))
+  <div class="alert alert-success alert-dismissible fade show my-4 col-6" role="alert">
+    {{ session('success') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+@endif
 <div class="row">
   <label for="occupant_id" class="col-sm-2 col-form-label">Penghuni</label>
   <div class="col-sm-3">
@@ -36,12 +42,11 @@
 </div>
 <div class="mb-3 row gap-2">
   <div class="col-form-label">
-    {{-- <a href="/placements/{{ $placement->id }}/edit" class="btn btn-sm btn-warning col-sm-1">Ubah</a> --}}
-    <form action="/placements/{{ $placement->id }}" class="d-inline" method="post">
-      @csrf
-      @method('delete')
-      <button class="btn btn-sm btn-danger col-sm-1 text-decoration-none" onclick="return confirm('Apakah Anda yakin ingin melanjutkan ?');">Hapus</button>
-    </form>
+    @if (empty($placement->check_out_date))
+      <button type="button" class="btn btn-sm btn-success col-sm-2" data-bs-toggle="modal" data-bs-target="#placement_checkout_wizard">
+        Keluar dari Penempatan
+      </button>
+    @endif
   </div>
 </div>
 @endsection

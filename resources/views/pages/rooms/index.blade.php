@@ -19,6 +19,7 @@
       <th>Kode Kamar</th>
       <th>Lokasi</th>
       <th>Kapasitas</th>
+      <th>Terisi</th>
       <th>Aksi</th>
     </tr>
   </thead>
@@ -30,6 +31,7 @@
         <td>{{ $room->code }}</td>
         <td>{{ $room->location ? $room->location->name : '' }}</td>
         <td>{{ $room->capacity }}</td>
+        <td>{{ $room->placements->whereNull('check_out_date')->count() }}</td>
         <td>
           <a href="/rooms/{{ $room->id }}" class="badge text-bg-primary text-decoration-none">Detail</a>
           <a href="/rooms/{{ $room->id }}/edit" class="badge text-bg-warning text-decoration-none">Ubah</a>
